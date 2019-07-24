@@ -2,8 +2,12 @@
 #include<stdlib.h>
 #include<math.h>
 
-#include <windows.h>
-#include <glut.h>
+
+#include <GL/glut.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glx.h>
+#include <X11/Xlib.h>
 
 // CIRCLE MOVE CODE
 
