@@ -95,6 +95,27 @@ void initS1LegOne()
     one.legOne.middle.y=10;
     one.legOne.bottom.x=-15;
     one.legOne.bottom.y=0;
+    //thigh
+    one.legOne.thigh.a.x=one.legOne.top.x-5 ;
+    one.legOne.thigh.a.y= one.legOne.top.y;
+    one.legOne.thigh.b.x= one.legOne.top.x+5 ;
+    one.legOne.thigh.b.y= one.legOne.top.y;
+    one.legOne.thigh.c.x= one.legOne.middle.x+3;
+    one.legOne.thigh.c.y= one.legOne.middle.y;
+    one.legOne.thigh.d.x= one.legOne.middle.x-3;
+    one.legOne.thigh.d.y= one.legOne.middle.y;
+    //knee
+    one.legOne.knee.a.x = one.legOne.bottom.x+2;
+    one.legOne.knee.a.y = one.legOne.bottom.y;
+    one.legOne.knee.b.x = one.legOne.bottom.x-2;
+    one.legOne.knee.b.y = one.legOne.bottom.y;
+    one.legOne.knee.c.x = one.legOne.middle.x-3;
+    one.legOne.knee.c.y = one.legOne.middle.y;
+    one.legOne.knee.d.x = one.legOne.middle.x+3;
+    one.legOne.knee.d.y = one.legOne.middle.y;
+
+
+
 }
 
 void initS1FootOne()
@@ -129,7 +150,8 @@ void initS1Lengths()
 {
     one.lengths.bicep = sqrt(pow((one.armOne.top.x - one.armOne.middle.x),2) + pow((one.armOne.top.y - one.armOne.middle.y),2));
     one.lengths.elbow = sqrt(pow(( one.armOne.middle.x - one.armOne.bottom.x ),2) + pow(( one.armOne.middle.y - one.armOne.bottom.y ),2)); 
-    
+    one.lengths.thigh = sqrt(pow((one.legOne.top.x - one.legOne.middle.x),2) + pow((one.legOne.top.y - one.legOne.middle.y),2));
+    one.lengths.knee = sqrt(pow((one.legOne.middle.x - one.legOne.bottom.x),2) + pow((one.legOne.middle.y - one.legOne.bottom.y),2));
 }
 
 void S1Punching()
@@ -160,10 +182,42 @@ void S1Punching()
 		one.armOne.elbow.c.y = one.armOne.bottom.y - 1.5;
 		one.armOne.elbow.d.x = one.armOne.bicep.c.x;
 		one.armOne.elbow.d.y = one.armOne.bicep.c.y;
-
+        //hand
         one.handOne.translate.x = one.armOne.bottom.x ;
 		one.handOne.translate.y = one.armOne.bottom.y ; 
         one.handOne.angle = 180;
+}
+
+void S1Kicking()
+{
+    //line
+		one.legOne.middle.x= one.legOne.top.x + one.lengths.thigh;
+		one.legOne.middle.y = one.legOne.top.y;
+
+		one.legOne.bottom.x = one.legOne.middle.x + one.lengths.knee;
+		one.legOne.bottom.y = one.legOne.top.y;
+    //thigh
+		one.legOne.thigh.a.x = one.legOne.top.x;
+		one.legOne.thigh.a.y = one.legOne.top.y + 5;
+		one.legOne.thigh.b.x = one.legOne.middle.x;
+		one.legOne.thigh.b.y = one.legOne.top.y + 3;
+		one.legOne.thigh.c.x = one.legOne.middle.x;
+		one.legOne.thigh.c.y = one.legOne.top.y - 3;
+		one.legOne.thigh.d.x = one.legOne.top.x;
+		one.legOne.thigh.d.y = one.legOne.top.y - 5;
+    //knee
+        one.legOne.knee.a.x = one.legOne.thigh.b.x;
+		one.legOne.knee.a.y = one.legOne.thigh.b.y;
+		one.legOne.knee.b.x = one.legOne.bottom.x;
+		one.legOne.knee.b.y = one.legOne.bottom.y + 1.5;
+		one.legOne.knee.c.x = one.legOne.bottom.x;
+		one.legOne.knee.c.y = one.legOne.bottom.y - 1.5;
+		one.legOne.knee.d.x = one.legOne.thigh.c.x;
+		one.legOne.knee.d.y = one.legOne.thigh.c.y;
+    //hand
+        one.footOne.translate.x = one.legOne.bottom.x ;
+		one.footOne.translate.y = one.legOne.bottom.y ; 
+        one.footOne.angle = 180;
 }
 
 void initializeStickmanOne()
@@ -185,6 +239,7 @@ void initializeStates()
 {
 	
 	one.states.punch = 0 ; 
+    one.states.kick = 0;
 }
 
 void theHead()
@@ -351,15 +406,18 @@ void legOne()
     glTranslatef(0,0,0);
     glBegin(GL_QUADS);
     glColor3f(0.0, 1.0, 1.0);
-                glVertex2f(one.legOne.top.x-5, one.legOne.top.y);   
-                glVertex2f(one.legOne.top.x+5, one.legOne.top.y); 
-                glVertex2f(one.legOne.middle.x+3, one.legOne.middle.y); 
-                glVertex2f(one.legOne.middle.x-3, one.legOne.middle.y);
+                //thigh
+                glVertex2f(one.legOne.thigh.a.x,one.legOne.thigh.a.y );   
+                glVertex2f(one.legOne.thigh.b.x,one.legOne.thigh.b.y );   
+                glVertex2f(one.legOne.thigh.c.x,one.legOne.thigh.c.y );   
+                glVertex2f(one.legOne.thigh.d.x,one.legOne.thigh.d.y );   
                 
-                glVertex2f(one.legOne.bottom.x+2, one.legOne.bottom.y);
-                glVertex2f(one.legOne.bottom.x-2, one.legOne.bottom.y);
-                glVertex2f(one.legOne.middle.x-3, one.legOne.middle.y);
-                glVertex2f(one.legOne.middle.x+3, one.legOne.middle.y); 
+                //knee
+                glVertex2f(one.legOne.knee.a.x,one.legOne.knee.a.y );
+                glVertex2f(one.legOne.knee.b.x,one.legOne.knee.b.y );
+                glVertex2f(one.legOne.knee.c.x,one.legOne.knee.c.y );
+                glVertex2f(one.legOne.knee.d.x,one.legOne.knee.d.y );
+                
                           
     glEnd();
 	glPopMatrix();
@@ -421,14 +479,14 @@ void drawStickmanOne()
     glTranslatef(one.bodyTranslate.x,one.bodyTranslate.y,0);
     handOne();
     armOne();
+    legOne();
     body(); 
     handTwo();
     armTwo();
     legTwo();
-    legOne();
-    glPopMatrix(); // END of moving body up and down
     footOne();
     footTwo();
+    glPopMatrix(); // END of moving body up and down
     glPopMatrix(); // END of moving body front and back
     
     drawAxes();

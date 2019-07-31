@@ -49,18 +49,22 @@ struct arm
 struct leg
 {
     points top,middle,bottom;
+    quad thigh,knee;
 
 };
 
 struct condition
 {
     int punch;
+    int kick;
 };
 
 struct length
 {
     int bicep;
     int elbow;
+    int thigh;
+    int knee;
 };
 
 

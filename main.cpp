@@ -245,7 +245,10 @@ void keyboardListener(unsigned char key, int x,int y){
 			one.toAndFro.x-=.5; // stickmanOne going backward
 			break;
 		case 'j':
-			one.states.punch = 1 ; // punch state on
+			one.states.punch = 1 ; // punch 
+			break;
+		case 'k':
+			one.states.kick = 1 ; // kick
 			break;
 
 
@@ -360,14 +363,15 @@ void display(){
 }
 
 int punchTimer = 0;
+int kickTimer = 0;
 void animate(){
 	
 	//--------------------------------------------------> Moving body up and down
-    // if(state ==0 && one.bodyTranslate.y>2){ state =1;}
-    // if(state ==1 && one.bodyTranslate.y <=0){state =0;}
+    if(state ==0 && one.bodyTranslate.y>2){ state =1;}
+    if(state ==1 && one.bodyTranslate.y <=0){state =0;}
 
-    // if(state == 0) one.bodyTranslate.y+=.10;
-    // else one.bodyTranslate.y-=.10;
+    if(state == 0) one.bodyTranslate.y+=.10;
+    else one.bodyTranslate.y-=.10;
 	//--------------------------------------------------> End of moving body body up and down
 
 	one.headOne.angle+=5;
@@ -383,9 +387,6 @@ void animate(){
 			one.states.punch=0;
 			punchTimer=0;
 		}
-		
-		
-		
 	}
 	else
 	{
@@ -393,7 +394,22 @@ void animate(){
 		initS1HandOne();
 	}
 	
-	
+	//-------------------------------------------------> kick
+	if(one.states.kick==1)
+	{
+		kickTimer++;
+		S1Kicking();
+		if(kickTimer>10)
+		{
+			one.states.kick=0;
+			kickTimer=0;
+		}
+	}
+	else
+	{
+		initS1LegOne();
+		initS1FootOne();
+	}
 
 	glutPostRedisplay();
 }
