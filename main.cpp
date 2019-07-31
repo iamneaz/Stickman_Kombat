@@ -9,6 +9,9 @@
 #include <GL/glx.h>
 #include <X11/Xlib.h>
 
+#include "StickmanOne.h"
+//#include "Shapes.h"
+
 // CIRCLE MOVE CODE
 
 
@@ -196,102 +199,15 @@ int drawaxes;
 double angle;
 double incx, incy;
 int state;
-struct point
-{
-	double x,y,z;
-};
+// struct point
+// {
+// 	double x,y,z;
+// };
 
 
 
 
-void drawAxes()
-{
-	if(drawaxes==1)
-	{
-		glColor3f(1.0, 1.0, 1.0);
-		glBegin(GL_LINES);{
-			glVertex3f( 100,0,0);
-			glVertex3f(-100,0,0);
 
-			glVertex3f(0,-100,0);
-			glVertex3f(0, 100,0);
-
-			glVertex3f(0,0, 100);
-			glVertex3f(0,0,-100);
-		}glEnd();
-	}
-}
-
-
-void drawGrid()
-{
-	int i;
-	if(drawgrid==1)
-	{
-		glColor3f(0.6, 0.6, 0.6);	//grey
-		glBegin(GL_LINES);{
-			for(i=-8;i<=8;i++){
-
-				if(i==0)
-					continue;	//SKIP the MAIN axes
-
-				//lines parallel to Y-axis
-				glVertex3f(i*10, -90, 0);
-				glVertex3f(i*10,  90, 0);
-
-				//lines parallel to X-axis
-				glVertex3f(-90, i*10, 0);
-				glVertex3f( 90, i*10, 0);
-			}
-		}glEnd();
-	}
-}
-
-void drawSquare(double a)
-{
-    //glColor3f(1.0,0.0,0.0);
-	glBegin(GL_QUADS);{
-		glVertex3f( a, a,2);
-		glVertex3f( a,-a,2);
-		glVertex3f(-a,-a,2);
-		glVertex3f(-a, a,2);
-	}glEnd();
-}
-
-
-void drawCircle(double radius,int segments)
-{
-    int i;
-    struct point points[100];
-    glColor3f(0.7,0.7,0.7);
-    //generate points
-    for(i=0;i<=segments;i++)
-    {
-        points[i].x=radius*cos(((double)i/(double)segments)*2*pi);
-        points[i].y=radius*sin(((double)i/(double)segments)*2*pi);
-    }
-    //draw segments using generated points
-    for(i=0;i<segments;i++)
-    {
-        glBegin(GL_LINES);
-        {
-			glVertex3f(points[i].x,points[i].y,0);
-			glVertex3f(points[i+1].x,points[i+1].y,0);
-        }
-        glEnd();
-    }
-}
-
-
-void draw_rec()
-{
-    glColor3f(0,1,0);
-    //glRotatef(5*angle,0,0,1);
-    glTranslatef(incx,incy,0);
-    //glRotatef(5*angle,0,0,1);
-    drawSquare(10);
-
-}
 void drawSS()
 {
     glColor3f(1,0,0);
@@ -407,7 +323,7 @@ void display(){
 
 	//gluLookAt(100,100,100,	0,0,0,	0,0,1);
 	//gluLookAt(200*cos(cameraAngle), 200*sin(cameraAngle), cameraHeight,		0,0,0,		0,0,1);
-	gluLookAt(0,0,200,	0,0,0,	0,1,0);
+	gluLookAt(0,0,100,	0,0,0,	0,1,0);
 
 
 	//again select MODEL-VIEW
@@ -417,10 +333,11 @@ void display(){
 
 	//add objects
 
-	drawAxes();
-	drawGrid();
-    //drawSS();
-    draw_rec();
+	//drawAxes();
+	//drawGrid();
+	drawStickmanOne();
+	
+    
 
 
 
@@ -433,13 +350,15 @@ void display(){
 
 
 void animate(){
-	angle+=0.05;
+	
 	//codes for any changes in Models, Camera
-    if(state ==0 && incx>50){ state =1;}
-    if(state ==1 && incx <-50){state =0;}
+    if(state ==0 && one.bodyTranslate.y>3){ state =1;}
+    if(state ==1 && one.bodyTranslate.y <=0){state =0;}
 
-    if(state == 0) incx+=0.05;
-    else incx-=0.05;
+    if(state == 0) one.bodyTranslate.y+=.10;
+    else one.bodyTranslate.y-=.10;
+
+	
 
 	glutPostRedisplay();
 }
@@ -451,7 +370,7 @@ void init(){
 	cameraHeight=150.0;
 	cameraAngle=1.0;
 	angle=0;
-
+	initializeStickmanOne();
 	//clear the screen
 	glClearColor(0,0,0,0);
 
