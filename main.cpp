@@ -10,6 +10,7 @@
 #include <X11/Xlib.h>
 
 #include "StickmanOne.h"
+
 //#include "Shapes.h"
 
 // CIRCLE MOVE CODE
@@ -204,7 +205,8 @@ int state;
 // 	double x,y,z;
 // };
 // Stickman One states
-int punchState;
+
+
 
 
 
@@ -236,7 +238,10 @@ void keyboardListener(unsigned char key, int x,int y){
 	switch(key){
 
 		case '1':
-			drawgrid=1-drawgrid;
+			one.states.showHadouken=1;
+			break;
+		case '2':
+			one.states.showHadouken=0;
 			break;
 		case 'd':
 			one.toAndFro.x+=.5; // stickmanOne going forward
@@ -245,10 +250,19 @@ void keyboardListener(unsigned char key, int x,int y){
 			one.toAndFro.x-=.5; // stickmanOne going backward
 			break;
 		case 'j':
-			one.states.punch = 1 ; // punch 
+			one.states.punch = 1 ; // punch
+			one.states.kick = 0; 
+			one.states.hadouken = 0;
 			break;
 		case 'k':
 			one.states.kick = 1 ; // kick
+			one.states.punch = 0 ;
+			one.states.hadouken = 0;
+			break;
+		case 'u':
+		one.states.hadouken = 1 ; // Hadouken
+		one.states.kick = 0 ; // kick off
+		one.states.punch = 0 ; // punch off
 			break;
 
 
@@ -315,7 +329,7 @@ void mouseListener(int button, int state, int x, int y){	//x, y is the x-y of th
 }
 
 
-
+int x=0;
 void display(){
 
 	//clear the display
@@ -350,6 +364,22 @@ void display(){
 	//drawAxes();
 	//drawGrid();
 	drawStickmanOne();
+
+	if(one.states.showHadouken==1)
+	{
+		glPushMatrix();
+		glTranslatef(x,0,0);
+		glPushMatrix();
+		glTranslatef(one.lengths.hadoukenX,one.lengths.hadoukenCenter,0);
+    	glRotatef(one.headOne.angle,0,0,1);
+    	hadoukenArt();
+		glPopMatrix();
+		glPopMatrix();
+
+		
+		
+	}
+	
 	
     
 
@@ -364,6 +394,7 @@ void display(){
 
 int punchTimer = 0;
 int kickTimer = 0;
+int hadoukenTimer = 0;
 void animate(){
 	
 	//--------------------------------------------------> Moving body up and down
@@ -411,6 +442,38 @@ void animate(){
 		initS1FootOne();
 	}
 
+	//--------------------------------------------------->Hadouken
+	
+	if(one.states.hadouken == 1)
+	{
+		one.states.showHadouken =1;
+		hadoukenTimer++;
+		S1Hadouken();
+		if(hadoukenTimer>10)
+		{
+			one.states.hadouken = 0;
+			hadoukenTimer =0;
+		}	
+	}
+	else
+	{
+		initS1ArmOne();
+		initS1ArmTwo();
+		initS1HandOne();
+		initS1HandTwo();
+	}
+
+	if(one.states.showHadouken == 1)
+	{
+		x+=1;
+		if(x>30)
+		{
+			one.states.showHadouken = 0;
+			x=0;
+		}
+	}
+	
+	
 	glutPostRedisplay();
 }
 

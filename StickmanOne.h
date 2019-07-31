@@ -5,220 +5,7 @@
 #include <GL/glx.h>
 #include <X11/Xlib.h>
 
-#include "Stickman.h"
-
-stickman one;
-
-void initS1Head()
-{
-    one.headOne.radius.x=8;
-    one.headOne.radius.y=8;
-    one.headOne.translate.x = 0;
-    one.headOne.translate.y = 60;
-    one.headOne.angle = 90;
-
-}
-
-void initS1Body()
-{
-    one.bodyDown.x=0;
-    one.bodyDown.y=25;
-    one.bodyTranslate.x = 0;
-    one.bodyTranslate.y = 0;
-    one.toAndFro.x = 0 ;
-    one.toAndFro.y = 0 ;
-}
-
-void initS1ArmOne()
-{
-     //------------------------>armOne
-    one.armOne.top.x = 0;
-    one.armOne.top.y = 45;
-    one.armOne.middle.x = -15;
-    one.armOne.middle.y = 30;
-    one.armOne.bottom.x = -5;
-    one.armOne.bottom.y = 20;
-    //------> bicep
-    one.armOne.bicep.a.x = one.armOne.top.x-5;
-    one.armOne.bicep.a.y = one.armOne.top.y;
-    one.armOne.bicep.b.x = one.armOne.top.x+5;
-    one.armOne.bicep.b.y = one.armOne.top.y;
-    one.armOne.bicep.c.x = one.armOne.middle.x+3;
-    one.armOne.bicep.c.y = one.armOne.middle.y;
-    one.armOne.bicep.d.x = one.armOne.middle.x-3;
-    one.armOne.bicep.d.y = one.armOne.middle.y;
-    //------> elbow
-    one.armOne.elbow.a.x = one.armOne.bottom.x+2;
-    one.armOne.elbow.a.y = one.armOne.bottom.y;
-    one.armOne.elbow.b.x = one.armOne.bottom.x-2;
-    one.armOne.elbow.b.y = one.armOne.bottom.y;
-    one.armOne.elbow.c.x = one.armOne.middle.x-3;
-    one.armOne.elbow.c.y = one.armOne.middle.y;
-    one.armOne.elbow.d.x = one.armOne.middle.x+3;
-    one.armOne.elbow.d.y = one.armOne.middle.y;
-    
-}
-
-void initS1HandOne()
-{
-    one.handOne.radius.x=2;
-    one.handOne.radius.y=one.handOne.radius.x+2;
-    one.handOne.translate.x = one.armOne.bottom.x;
-    one.handOne.translate.y = one.armOne.bottom.y;
-    one.handOne.angle=-45;
-}
-
-void initS1ArmTwo()
-{
-    one.armTwo.top.x = 0;
-    one.armTwo.top.y = 45;
-    one.armTwo.middle.x = 15;
-    one.armTwo.middle.y = 30;
-    one.armTwo.bottom.x = 20;
-    one.armTwo.bottom.y = 40;
-}
-
-void initS1HandTwo()
-{
-    one.handTwo.radius.x=2;
-    one.handTwo.radius.y=one.handTwo.radius.x+2;
-    one.handTwo.translate.x = one.armTwo.bottom.x;
-    one.handTwo.translate.y = one.armTwo.bottom.y;
-    one.handTwo.angle=-90;
-}
-
-void initS1LegOne()
-{
-    one.legOne.top.x=one.bodyDown.x;
-    one.legOne.top.y=one.bodyDown.y;
-    one.legOne.middle.x=-5;
-    one.legOne.middle.y=10;
-    one.legOne.bottom.x=-15;
-    one.legOne.bottom.y=0;
-    //thigh
-    one.legOne.thigh.a.x=one.legOne.top.x-5 ;
-    one.legOne.thigh.a.y= one.legOne.top.y;
-    one.legOne.thigh.b.x= one.legOne.top.x+5 ;
-    one.legOne.thigh.b.y= one.legOne.top.y;
-    one.legOne.thigh.c.x= one.legOne.middle.x+3;
-    one.legOne.thigh.c.y= one.legOne.middle.y;
-    one.legOne.thigh.d.x= one.legOne.middle.x-3;
-    one.legOne.thigh.d.y= one.legOne.middle.y;
-    //knee
-    one.legOne.knee.a.x = one.legOne.bottom.x+2;
-    one.legOne.knee.a.y = one.legOne.bottom.y;
-    one.legOne.knee.b.x = one.legOne.bottom.x-2;
-    one.legOne.knee.b.y = one.legOne.bottom.y;
-    one.legOne.knee.c.x = one.legOne.middle.x-3;
-    one.legOne.knee.c.y = one.legOne.middle.y;
-    one.legOne.knee.d.x = one.legOne.middle.x+3;
-    one.legOne.knee.d.y = one.legOne.middle.y;
-
-
-
-}
-
-void initS1FootOne()
-{
-    one.footOne.radius.x=2;
-    one.footOne.radius.y=one.footOne.radius.x+3;
-    one.footOne.translate.x = one.legOne.bottom.x+2;
-    one.footOne.translate.y = one.legOne.bottom.y;
-    one.footOne.angle=-90;
-}
-
-void initS1LegTwo()
-{
-    one.legTwo.top.x=one.bodyDown.x;
-    one.legTwo.top.y=one.bodyDown.y;
-    one.legTwo.middle.x=10;
-    one.legTwo.middle.y=14;
-    one.legTwo.bottom.x=8;
-    one.legTwo.bottom.y=0;
-}
-
-void initS1FootTwo()
-{
-    one.footTwo.radius.x=2;
-    one.footTwo.radius.y=one.footTwo.radius.x+3;
-    one.footTwo.translate.x = one.legTwo.bottom.x+2;
-    one.footTwo.translate.y = one.legTwo.bottom.y;
-    one.footTwo.angle=-90;
-}
-
-void initS1Lengths()
-{
-    one.lengths.bicep = sqrt(pow((one.armOne.top.x - one.armOne.middle.x),2) + pow((one.armOne.top.y - one.armOne.middle.y),2));
-    one.lengths.elbow = sqrt(pow(( one.armOne.middle.x - one.armOne.bottom.x ),2) + pow(( one.armOne.middle.y - one.armOne.bottom.y ),2)); 
-    one.lengths.thigh = sqrt(pow((one.legOne.top.x - one.legOne.middle.x),2) + pow((one.legOne.top.y - one.legOne.middle.y),2));
-    one.lengths.knee = sqrt(pow((one.legOne.middle.x - one.legOne.bottom.x),2) + pow((one.legOne.middle.y - one.legOne.bottom.y),2));
-}
-
-void S1Punching()
-{
-    //line
-		one.armOne.middle.x= one.armOne.top.x + one.lengths.bicep;
-		one.armOne.middle.y = one.armOne.top.y;
-
-		one.armOne.bottom.x = one.armOne.middle.x + one.lengths.elbow;
-		one.armOne.bottom.y = one.armOne.top.y;
-
-		//bicep
-		one.armOne.bicep.a.x = one.armOne.top.x-2;
-		one.armOne.bicep.a.y = one.armOne.top.y + 5;
-		one.armOne.bicep.b.x = one.armOne.middle.x;
-		one.armOne.bicep.b.y = one.armOne.top.y + 2;
-		one.armOne.bicep.c.x = one.armOne.middle.x;
-		one.armOne.bicep.c.y = one.armOne.top.y - 2;
-		one.armOne.bicep.d.x = one.armOne.top.x;
-		one.armOne.bicep.d.y = one.armOne.top.y - 5;
-
-        //elbow
-        one.armOne.elbow.a.x = one.armOne.bicep.b.x;
-		one.armOne.elbow.a.y = one.armOne.bicep.b.y;
-		one.armOne.elbow.b.x = one.armOne.bottom.x;
-		one.armOne.elbow.b.y = one.armOne.bottom.y + 1.5;
-		one.armOne.elbow.c.x = one.armOne.bottom.x;
-		one.armOne.elbow.c.y = one.armOne.bottom.y - 1.5;
-		one.armOne.elbow.d.x = one.armOne.bicep.c.x;
-		one.armOne.elbow.d.y = one.armOne.bicep.c.y;
-        //hand
-        one.handOne.translate.x = one.armOne.bottom.x ;
-		one.handOne.translate.y = one.armOne.bottom.y ; 
-        one.handOne.angle = 180;
-}
-
-void S1Kicking()
-{
-    //line
-		one.legOne.middle.x= one.legOne.top.x + one.lengths.thigh;
-		one.legOne.middle.y = one.legOne.top.y;
-
-		one.legOne.bottom.x = one.legOne.middle.x + one.lengths.knee;
-		one.legOne.bottom.y = one.legOne.top.y;
-    //thigh
-		one.legOne.thigh.a.x = one.legOne.top.x;
-		one.legOne.thigh.a.y = one.legOne.top.y + 5;
-		one.legOne.thigh.b.x = one.legOne.middle.x;
-		one.legOne.thigh.b.y = one.legOne.top.y + 3;
-		one.legOne.thigh.c.x = one.legOne.middle.x;
-		one.legOne.thigh.c.y = one.legOne.top.y - 3;
-		one.legOne.thigh.d.x = one.legOne.top.x;
-		one.legOne.thigh.d.y = one.legOne.top.y - 5;
-    //knee
-        one.legOne.knee.a.x = one.legOne.thigh.b.x;
-		one.legOne.knee.a.y = one.legOne.thigh.b.y;
-		one.legOne.knee.b.x = one.legOne.bottom.x;
-		one.legOne.knee.b.y = one.legOne.bottom.y + 1.5;
-		one.legOne.knee.c.x = one.legOne.bottom.x;
-		one.legOne.knee.c.y = one.legOne.bottom.y - 1.5;
-		one.legOne.knee.d.x = one.legOne.thigh.c.x;
-		one.legOne.knee.d.y = one.legOne.thigh.c.y;
-    //hand
-        one.footOne.translate.x = one.legOne.bottom.x ;
-		one.footOne.translate.y = one.legOne.bottom.y ; 
-        one.footOne.angle = 180;
-}
+#include "initialization/initStickmanOne.h"
 
 void initializeStickmanOne()
 {
@@ -233,13 +20,6 @@ void initializeStickmanOne()
     initS1LegTwo();
     initS1FootTwo();
     initS1Lengths();
-}
-
-void initializeStates()
-{
-	
-	one.states.punch = 0 ; 
-    one.states.kick = 0;
 }
 
 void theHead()
@@ -364,10 +144,11 @@ void armTwo()
                 glVertex2f(one.armTwo.middle.x+3, one.armTwo.middle.y); 
                 glVertex2f(one.armTwo.middle.x-3, one.armTwo.middle.y);
                 
-                glVertex2f(one.armTwo.bottom.x+2, one.armTwo.bottom.y);
-                glVertex2f(one.armTwo.bottom.x-2, one.armTwo.bottom.y);
-                glVertex2f(one.armTwo.middle.x-3, one.armTwo.middle.y);
-                glVertex2f(one.armTwo.middle.x+3, one.armTwo.middle.y); 
+                glVertex2f(one.armTwo.elbow.a.x,one.armTwo.elbow.a.y );
+                glVertex2f(one.armTwo.elbow.b.x,one.armTwo.elbow.b.y );
+                glVertex2f(one.armTwo.elbow.c.x,one.armTwo.elbow.c.y );
+                glVertex2f(one.armTwo.elbow.d.x,one.armTwo.elbow.d.y );
+                
                           
     glEnd();
 	glPopMatrix();
@@ -491,5 +272,99 @@ void drawStickmanOne()
     
     drawAxes();
     drawGrid();
+}
+
+void S1Punching()
+{
+    //line
+		one.armOne.middle.x= one.armOne.top.x + one.lengths.bicep;
+		one.armOne.middle.y = one.armOne.top.y;
+
+		one.armOne.bottom.x = one.armOne.middle.x + one.lengths.elbow;
+		one.armOne.bottom.y = one.armOne.top.y;
+
+		//bicep
+		one.armOne.bicep.a.x = one.armOne.top.x-2;
+		one.armOne.bicep.a.y = one.armOne.top.y + 5;
+		one.armOne.bicep.b.x = one.armOne.middle.x;
+		one.armOne.bicep.b.y = one.armOne.top.y + 2;
+		one.armOne.bicep.c.x = one.armOne.middle.x;
+		one.armOne.bicep.c.y = one.armOne.top.y - 2;
+		one.armOne.bicep.d.x = one.armOne.top.x;
+		one.armOne.bicep.d.y = one.armOne.top.y - 5;
+
+        //elbow
+        one.armOne.elbow.a.x = one.armOne.bicep.b.x;
+		one.armOne.elbow.a.y = one.armOne.bicep.b.y;
+		one.armOne.elbow.b.x = one.armOne.bottom.x;
+		one.armOne.elbow.b.y = one.armOne.bottom.y + 1.5;
+		one.armOne.elbow.c.x = one.armOne.bottom.x;
+		one.armOne.elbow.c.y = one.armOne.bottom.y - 1.5;
+		one.armOne.elbow.d.x = one.armOne.bicep.c.x;
+		one.armOne.elbow.d.y = one.armOne.bicep.c.y;
+        //hand
+        one.handOne.translate.x = one.armOne.bottom.x ;
+		one.handOne.translate.y = one.armOne.bottom.y ; 
+        one.handOne.angle = 180;
+}
+
+void S1Kicking()
+{
+    //line
+		one.legOne.middle.x= one.legOne.top.x + one.lengths.thigh;
+		one.legOne.middle.y = one.legOne.top.y;
+
+		one.legOne.bottom.x = one.legOne.middle.x + one.lengths.knee;
+		one.legOne.bottom.y = one.legOne.top.y;
+    //thigh
+		one.legOne.thigh.a.x = one.legOne.top.x;
+		one.legOne.thigh.a.y = one.legOne.top.y + 5;
+		one.legOne.thigh.b.x = one.legOne.middle.x;
+		one.legOne.thigh.b.y = one.legOne.top.y + 3;
+		one.legOne.thigh.c.x = one.legOne.middle.x;
+		one.legOne.thigh.c.y = one.legOne.top.y - 3;
+		one.legOne.thigh.d.x = one.legOne.top.x;
+		one.legOne.thigh.d.y = one.legOne.top.y - 5;
+    //knee
+        one.legOne.knee.a.x = one.legOne.thigh.b.x;
+		one.legOne.knee.a.y = one.legOne.thigh.b.y;
+		one.legOne.knee.b.x = one.legOne.bottom.x;
+		one.legOne.knee.b.y = one.legOne.bottom.y + 1.5;
+		one.legOne.knee.c.x = one.legOne.bottom.x;
+		one.legOne.knee.c.y = one.legOne.bottom.y - 1.5;
+		one.legOne.knee.d.x = one.legOne.thigh.c.x;
+		one.legOne.knee.d.y = one.legOne.thigh.c.y;
+    //hand
+        one.footOne.translate.x = one.legOne.bottom.x ;
+		one.footOne.translate.y = one.legOne.bottom.y ; 
+        one.footOne.angle = 180;
+}
+
+void S1Hadouken()
+{
+    S1Punching();
+    //line
+    one.armTwo.bottom.x = one.armTwo.middle.x+ one.lengths.elbow2;
+    one.armTwo.bottom.y = one.armTwo.middle.y;
+    //elbow
+    one.armTwo.elbow.a.x = one.armTwo.middle.x;
+    one.armTwo.elbow.a.y = one.armTwo.middle.y+3;
+    one.armTwo.elbow.b.x = one.armTwo.middle.x+one.lengths.elbow2;
+    one.armTwo.elbow.b.y = one.armTwo.middle.y+1.5;
+    one.armTwo.elbow.c.x = one.armTwo.middle.x+one.lengths.elbow2;
+    one.armTwo.elbow.c.y = one.armTwo.middle.y-1.5;
+    one.armTwo.elbow.d.x = one.armTwo.middle.x-3.5;
+    one.armTwo.elbow.d.y = one.armTwo.middle.y-.5;
+
+    //hand
+    one.handTwo.translate.x = one.armTwo.bottom.x ;
+	one.handTwo.translate.y = one.armTwo.bottom.y ; 
+    one.handTwo.angle = 180;
+
+    one.lengths.hadoukenCenter = (one.armOne.bottom.y + one.armTwo.bottom.y)/2;
+    one.lengths.hadoukenX = one.armTwo.bottom.x;
+
+    
+
 }
 

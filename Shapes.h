@@ -134,3 +134,10 @@ void circleHead(float radius_x, float radius_y)
 
 	glEnd();
 }
+
+void hadoukenArt()
+{
+	//glRotatef(one.headOne.angle,0,0,1);
+    circleHead(5,5);
+}
+

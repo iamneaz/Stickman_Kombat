@@ -1,4 +1,4 @@
-#include<math.h>
+#include <math.h>
 #include <GL/glut.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -57,6 +57,8 @@ struct condition
 {
     int punch;
     int kick;
+    int hadouken;
+    int showHadouken;
 };
 
 struct length
@@ -65,6 +67,10 @@ struct length
     int elbow;
     int thigh;
     int knee;
+    int elbow2;
+    int hadoukenCenter;
+    int hadoukenX;
+    
 };
 
 
