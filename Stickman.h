@@ -13,6 +13,13 @@ struct points
     double y;
 };
 
+struct head
+{
+    points radius;
+    points translate;
+    int angle;
+};
+
 struct hand
 {
     points radius;
@@ -27,9 +34,15 @@ struct foot
     int angle;
 };
 
+struct quad
+{
+    points a,b,c,d;
+};
+
 struct arm
 {
     points top,middle,bottom;
+    quad bicep,elbow;
 
 };
 
@@ -39,17 +52,28 @@ struct leg
 
 };
 
+struct condition
+{
+    int punch;
+};
+
+struct length
+{
+    int bicep;
+    int elbow;
+};
+
 
 struct stickman
 {
 	//--------------------Head
-    double headRadius;
-    int headSegments;
+    head headOne;
     points headTranslate;
 
     //---------------------Body
     points bodyDown;
     points bodyTranslate;
+    points toAndFro;
 
     //---------------------arms
     arm armOne,armTwo;
@@ -59,6 +83,11 @@ struct stickman
     leg legOne,legTwo;
     foot footOne,footTwo;
 
+    //---------------------state
+    condition states;
+
+    //---------------------lengths
+    length lengths;
 };
 
 

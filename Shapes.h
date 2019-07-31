@@ -116,3 +116,21 @@ void circle(float radius_x, float radius_y)
 
 	glEnd();
 }
+
+void circleHead(float radius_x, float radius_y)
+{
+	int i = 0;
+	float angle = 0.0;
+
+	glBegin(GL_POLYGON);
+    {
+		for(i = 0; i < 100; i++)
+		{
+			glColor3f(i,i-1,i+1);
+			angle = 2 * pi * i / 100;
+			glVertex3f (cos(angle) * radius_x, sin(angle) * radius_y, 0);
+		}
+    }
+
+	glEnd();
+}

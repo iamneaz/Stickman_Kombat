@@ -203,7 +203,8 @@ int state;
 // {
 // 	double x,y,z;
 // };
-
+// Stickman One states
+int punchState;
 
 
 
@@ -237,6 +238,16 @@ void keyboardListener(unsigned char key, int x,int y){
 		case '1':
 			drawgrid=1-drawgrid;
 			break;
+		case 'd':
+			one.toAndFro.x+=.5; // stickmanOne going forward
+			break;
+		case 'a':
+			one.toAndFro.x-=.5; // stickmanOne going backward
+			break;
+		case 'j':
+			one.states.punch = 1 ; // punch state on
+			break;
+
 
 		default:
 			break;
@@ -348,16 +359,40 @@ void display(){
 	glutSwapBuffers();
 }
 
-
+int punchTimer = 0;
 void animate(){
 	
-	//codes for any changes in Models, Camera
-    if(state ==0 && one.bodyTranslate.y>3){ state =1;}
-    if(state ==1 && one.bodyTranslate.y <=0){state =0;}
+	//--------------------------------------------------> Moving body up and down
+    // if(state ==0 && one.bodyTranslate.y>2){ state =1;}
+    // if(state ==1 && one.bodyTranslate.y <=0){state =0;}
 
-    if(state == 0) one.bodyTranslate.y+=.10;
-    else one.bodyTranslate.y-=.10;
+    // if(state == 0) one.bodyTranslate.y+=.10;
+    // else one.bodyTranslate.y-=.10;
+	//--------------------------------------------------> End of moving body body up and down
 
+	one.headOne.angle+=5;
+
+	//--------------------------------------------------> punch
+
+	if(one.states.punch==1)
+	{
+		punchTimer++;
+		S1Punching();
+		if(punchTimer>10)
+		{
+			one.states.punch=0;
+			punchTimer=0;
+		}
+		
+		
+		
+	}
+	else
+	{
+		initS1ArmOne();
+		initS1HandOne();
+	}
+	
 	
 
 	glutPostRedisplay();
@@ -371,6 +406,7 @@ void init(){
 	cameraAngle=1.0;
 	angle=0;
 	initializeStickmanOne();
+	initializeStates();
 	//clear the screen
 	glClearColor(0,0,0,0);
 
