@@ -9,7 +9,8 @@
 #include <GL/glx.h>
 #include <X11/Xlib.h>
 
-#include "StickmanOne.h"
+#include "Stickman.h"
+//#include "StickmanTwo.h"
 
 //#include "Shapes.h"
 
@@ -364,6 +365,7 @@ void display(){
 	//drawAxes();
 	//drawGrid();
 	drawStickmanOne();
+	drawStickmanTwo();
 
 	if(one.states.showHadouken==1)
 	{
@@ -394,8 +396,16 @@ void animate(){
     if(state ==0 && one.bodyTranslate.y>2){ state =1;}
     if(state ==1 && one.bodyTranslate.y <=0){state =0;}
 
-    if(state == 0) one.bodyTranslate.y+=.10;
-    else one.bodyTranslate.y-=.10;
+    if(state == 0)
+	{
+		one.bodyTranslate.y+=.10;
+		two.bodyTranslate.y+=.10;
+	}
+	else 
+	{
+		one.bodyTranslate.y-=.10;
+		two.bodyTranslate.y-=.10;
+	}
 	//--------------------------------------------------> End of moving body body up and down
 
 	one.headOne.angle+=5;
@@ -480,7 +490,9 @@ void init(){
 	cameraAngle=1.0;
 	angle=0;
 	initializeStickmanOne();
-	initializeStates();
+	initializeStickmanTwo();
+	initializeS1States();
+	initializeS2States();
 	//clear the screen
 	glClearColor(0,0,0,0);
 
