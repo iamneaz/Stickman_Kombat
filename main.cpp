@@ -200,11 +200,7 @@ int drawaxes;
 double angle;
 double incx, incy;
 int state;
-// struct point
-// {
-// 	double x,y,z;
-// };
-// Stickman One states
+char* testString;
 
 
 
@@ -234,35 +230,39 @@ void drawSS()
 
 }
 
+/**
+ * Draw a character string.
+ *
+ * @param x        The x position
+ * @param y        The y position
+ * @param z        The z position
+ * @param string   The character string
+ */
+void drawString(float x, float y, float z, char *string) {
+  glRasterPos3f(x, y, z);
+
+  for (char* c = string; *c != '\0'; c++) {
+    glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *c);  // Updates the position
+  }
+}
+
 void keyboardListener(unsigned char key, int x,int y){
 	switch(key){
 
-		case '1':
-			one.states.showHadouken=1;
-			break;
-		case '2':
-			one.states.showHadouken=0;
-			break;
 		case 'd':
-			one.toAndFro.x+=.5; // stickmanOne going forward
+			one.toAndFro.x+=1; // stickmanOne going forward
 			break;
 		case 'a':
-			one.toAndFro.x-=.5; // stickmanOne going backward
+			one.toAndFro.x-=1; // stickmanOne going backward
 			break;
-		case 'j':
+		case 'b':
 			one.states.punch = 1 ; // punch
-			one.states.kick = 0; 
-			one.states.hadouken = 0;
 			break;
-		case 'k':
+		case 'n':
 			one.states.kick = 1 ; // kick
-			one.states.punch = 0 ;
-			one.states.hadouken = 0;
 			break;
-		case 'u':
-		one.states.hadouken = 1 ; // Hadouken
-		one.states.kick = 0 ; // kick off
-		one.states.punch = 0 ; // punch off
+		case 'm':
+			one.states.hadouken = 1 ; // Hadouken
 			break;
 
 
@@ -379,15 +379,8 @@ void display(){
 		
 		
 	}
-	
-	
-    
 
-
-
-
-
-
+	//drawString(0,-30,0,testString);
 	//ADD this line in the end --- if you use double buffer (i.e. GL_DOUBLE)
 	glutSwapBuffers();
 }
@@ -407,23 +400,7 @@ void animate(){
 
 	one.headOne.angle+=5;
 
-	//--------------------------------------------------> punch
-
-	if(one.states.punch==1)
-	{
-		punchTimer++;
-		S1Punching();
-		if(punchTimer>10)
-		{
-			one.states.punch=0;
-			punchTimer=0;
-		}
-	}
-	else
-	{
-		initS1ArmOne();
-		initS1HandOne();
-	}
+	
 	
 	//-------------------------------------------------> kick
 	if(one.states.kick==1)
@@ -473,7 +450,25 @@ void animate(){
 		}
 	}
 	
-	
+	//--------------------------------------------------> punch
+
+	if(one.states.punch == 1)
+	{
+		punchTimer++;
+		S1Punching();
+		if(punchTimer>10)
+		{
+			one.states.punch=0;
+			punchTimer=0;
+		}
+	}
+	else
+	{
+		//  initS1ArmOne();
+		//  initS1HandOne();
+	}
+
+	//printf("%d",one.states.punch);
 	glutPostRedisplay();
 }
 
@@ -510,7 +505,7 @@ int main(int argc, char **argv){
 	glutInitWindowPosition(0, 0);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);	//Depth, Double buffer, RGB color
 
-	glutCreateWindow("My OpenGL Program");
+	glutCreateWindow("Stickman Kombat");
 
 	init();
 

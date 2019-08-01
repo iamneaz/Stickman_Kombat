@@ -342,7 +342,37 @@ void S1Kicking()
 
 void S1Hadouken()
 {
-    S1Punching();
+    //---------------------------->S1 punching
+     //line
+		one.armOne.middle.x= one.armOne.top.x + one.lengths.bicep;
+		one.armOne.middle.y = one.armOne.top.y;
+
+		one.armOne.bottom.x = one.armOne.middle.x + one.lengths.elbow;
+		one.armOne.bottom.y = one.armOne.top.y;
+
+		//bicep
+		one.armOne.bicep.a.x = one.armOne.top.x-2;
+		one.armOne.bicep.a.y = one.armOne.top.y + 5;
+		one.armOne.bicep.b.x = one.armOne.middle.x;
+		one.armOne.bicep.b.y = one.armOne.top.y + 2;
+		one.armOne.bicep.c.x = one.armOne.middle.x;
+		one.armOne.bicep.c.y = one.armOne.top.y - 2;
+		one.armOne.bicep.d.x = one.armOne.top.x;
+		one.armOne.bicep.d.y = one.armOne.top.y - 5;
+
+        //elbow
+        one.armOne.elbow.a.x = one.armOne.bicep.b.x;
+		one.armOne.elbow.a.y = one.armOne.bicep.b.y;
+		one.armOne.elbow.b.x = one.armOne.bottom.x;
+		one.armOne.elbow.b.y = one.armOne.bottom.y + 1.5;
+		one.armOne.elbow.c.x = one.armOne.bottom.x;
+		one.armOne.elbow.c.y = one.armOne.bottom.y - 1.5;
+		one.armOne.elbow.d.x = one.armOne.bicep.c.x;
+		one.armOne.elbow.d.y = one.armOne.bicep.c.y;
+        //hand
+        one.handOne.translate.x = one.armOne.bottom.x ;
+		one.handOne.translate.y = one.armOne.bottom.y ; 
+        one.handOne.angle = 180;
     //line
     one.armTwo.bottom.x = one.armTwo.middle.x+ one.lengths.elbow2;
     one.armTwo.bottom.y = one.armTwo.middle.y;
