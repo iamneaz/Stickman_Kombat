@@ -20,6 +20,8 @@ void initializeStickmanOne()
     initS1LegTwo();
     initS1FootTwo();
     initS1Lengths();
+    initializeS1Hadouken();
+    
 }
 
 void theHead()
@@ -254,24 +256,40 @@ void legTwo()
 void drawStickmanOne()
 {
     glPushMatrix();
-    glTranslatef(-50,0,0); // moving stickman one to the left side
-    glPushMatrix();
-    glTranslatef(one.toAndFro.x,one.toAndFro.y,0); // moving body front and back
-    theHead();
-    glPushMatrix(); // moving body up and down
-    glTranslatef(one.bodyTranslate.x,one.bodyTranslate.y,0);
-    handOne();
-    armOne();
-    legOne();
-    body(); 
-    handTwo();
-    armTwo();
-    legTwo();
-    footOne();
-    footTwo();
-    glPopMatrix(); // END of moving body up and down
-    glPopMatrix(); // END of moving body front and back
+        glTranslatef(-50,0,0); // moving stickman one to the left side
+        glPushMatrix();
+            glTranslatef(one.toAndFro.x,one.toAndFro.y,0); // moving body front and back
+            theHead();
+                glPushMatrix(); // moving body up and down
+                    glTranslatef(one.bodyTranslate.x,one.bodyTranslate.y,0);
+                    handOne();
+                    armOne();
+                    legOne();
+                    body(); 
+                    handTwo();
+                    armTwo();
+                    legTwo();
+                    footOne();
+                    footTwo();
+                    glPushMatrix(); // Hadouken 
+                        glTranslatef(one.hadouken.moving.x,0,0); // moving hadouken forward
+                        glPushMatrix();
+                                glTranslatef(one.lengths.hadoukenX,one.lengths.hadoukenCenter,0); // centering hadouken
+                                glPushMatrix();
+                                    glTranslatef(one.hadouken.initial.x,one.hadouken.initial.y,0);
+                                    glRotatef(one.headOne.angle,0,0,1);
+                                    hadoukenArt();
+                                glPopMatrix();
+                        glPopMatrix();
+                    glPopMatrix(); // EMD of hadouken
+                glPopMatrix(); // END of moving body up and down
+         glPopMatrix(); // END of moving body front and back
     glPopMatrix();
+
+   
+	
+	
+
     
     drawAxes();
     drawGrid();
@@ -364,8 +382,7 @@ void S1Hadouken()
 	one.handTwo.translate.y = one.armTwo.bottom.y ; 
     one.handTwo.angle = 180;
 
-    one.lengths.hadoukenCenter = (one.armOne.bottom.y + one.armTwo.bottom.y)/2;
-    one.lengths.hadoukenX = one.armTwo.bottom.x;
+    
 
     
 

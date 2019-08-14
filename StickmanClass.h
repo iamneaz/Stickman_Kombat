@@ -13,6 +13,12 @@ struct points
     double y;
 };
 
+struct hadoukenPoints
+{
+    points initial;
+    points moving;
+};
+
 struct head
 {
     points radius;
@@ -98,6 +104,10 @@ struct stickman
 
     //---------------------lengths
     length lengths;
+
+    //---------------------Hadouken
+    
+    hadoukenPoints hadouken;
 };
 
 

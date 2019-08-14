@@ -203,10 +203,14 @@ double incx, incy;
 int state;
 char* testString;
 
+struct counter
+{
+	int punch=0;
+	int kick=0;
+	int hadouken=0;
+};
 
-
-
-
+counter timerOne,timerTwo;
 
 void drawSS()
 {
@@ -265,6 +269,15 @@ void keyboardListener(unsigned char key, int x,int y){
 		case 'm':
 			one.states.hadouken = 1 ; // Hadouken
 			break;
+		case '1':
+			two.states.punch = 1 ; // punch
+			break;
+		case '2':
+			two.states.kick = 1 ; // kick
+			break;
+		case '3':
+			two.states.hadouken = 1 ; // Hadouken
+			break;
 
 
 		default:
@@ -276,17 +289,17 @@ void keyboardListener(unsigned char key, int x,int y){
 void specialKeyListener(int key, int x,int y){
 	switch(key){
 		case GLUT_KEY_DOWN:		//down arrow key
-			cameraHeight -= 3.0;
+			
 			break;
 		case GLUT_KEY_UP:		// up arrow key
-			cameraHeight += 3.0;
+			
 			break;
 
 		case GLUT_KEY_RIGHT:
-			cameraAngle += 0.03;
+			two.toAndFro.x+=1; // stickmanTwo going backward
 			break;
 		case GLUT_KEY_LEFT:
-			cameraAngle -= 0.03;
+			two.toAndFro.x-=1; // stickmanTwo going forward
 			break;
 
 		case GLUT_KEY_PAGE_UP:
@@ -330,7 +343,8 @@ void mouseListener(int button, int state, int x, int y){	//x, y is the x-y of th
 }
 
 
-int x=0;
+int S1x=0 , S2x=0;
+int hx;
 void display(){
 
 	//clear the display
@@ -367,13 +381,30 @@ void display(){
 	drawStickmanOne();
 	drawStickmanTwo();
 
-	if(one.states.showHadouken==1)
+	//  if(one.states.showHadouken==1)
+	// {
+	// 	glPushMatrix();
+	// 	glTranslatef(S1x,0,0);
+	// 	glPushMatrix();
+	// 	glTranslatef(one.lengths.hadoukenX,one.lengths.hadoukenCenter,0);
+    // 	glRotatef(one.headOne.angle,0,0,1);
+    // 	hadoukenArt();
+	// 	glPopMatrix();
+	// 	glPopMatrix();
+	// }
+	// else
+	// {
+		
+	// }
+	
+
+	if(two.states.showHadouken==1)
 	{
 		glPushMatrix();
-		glTranslatef(x,0,0);
+		glTranslatef(S2x,0,0);
 		glPushMatrix();
-		glTranslatef(one.lengths.hadoukenX,one.lengths.hadoukenCenter,0);
-    	glRotatef(one.headOne.angle,0,0,1);
+		glTranslatef(two.lengths.hadoukenX,two.lengths.hadoukenCenter,0);
+    	glRotatef(two.headOne.angle,0,0,1);
     	hadoukenArt();
 		glPopMatrix();
 		glPopMatrix();
@@ -387,13 +418,9 @@ void display(){
 	glutSwapBuffers();
 }
 
-int punchTimer = 0;
-int kickTimer = 0;
-int hadoukenTimer = 0;
-void animate(){
-	
-	//--------------------------------------------------> Moving body up and down
-    if(state ==0 && one.bodyTranslate.y>2){ state =1;}
+void animation_movingBodyUpAndDown()
+{
+	if(state ==0 && one.bodyTranslate.y>2){ state =1;}
     if(state ==1 && one.bodyTranslate.y <=0){state =0;}
 
     if(state == 0)
@@ -406,21 +433,22 @@ void animate(){
 		one.bodyTranslate.y-=.10;
 		two.bodyTranslate.y-=.10;
 	}
-	//--------------------------------------------------> End of moving body body up and down
-
+}
+void animation_rotatingHead()
+{
 	one.headOne.angle+=5;
-
-	
-	
-	//-------------------------------------------------> kick
+	two.headOne.angle+=5;
+}
+void animation_S1Kick()
+{
 	if(one.states.kick==1)
 	{
-		kickTimer++;
+		timerOne.kick++;
 		S1Kicking();
-		if(kickTimer>10)
+		if(timerOne.kick>10)
 		{
 			one.states.kick=0;
-			kickTimer=0;
+			timerOne.kick=0;
 		}
 	}
 	else
@@ -428,18 +456,26 @@ void animate(){
 		initS1LegOne();
 		initS1FootOne();
 	}
-
-	//--------------------------------------------------->Hadouken
-	
+}
+void animation_S1Hadouken()
+{
 	if(one.states.hadouken == 1)
 	{
+		one.hadouken.initial.y=0;
+		one.lengths.hadoukenCenter = (one.armOne.bottom.y + one.armTwo.bottom.y)/2;
+    	one.lengths.hadoukenX = one.armTwo.bottom.x;
+		hx = one.lengths.hadoukenX ;
 		one.states.showHadouken =1;
-		hadoukenTimer++;
+		timerOne.hadouken++;
+		one.hadouken.moving.x++;
 		S1Hadouken();
-		if(hadoukenTimer>10)
+		if(timerOne.hadouken>20)
 		{
+			one.hadouken.moving.x=0;
 			one.states.hadouken = 0;
-			hadoukenTimer =0;
+			timerOne.hadouken = 0;
+			one.hadouken.initial.y=0;
+			one.lengths.hadoukenX=0;
 		}	
 	}
 	else
@@ -452,24 +488,25 @@ void animate(){
 
 	if(one.states.showHadouken == 1)
 	{
-		x+=1;
-		if(x>30)
+		
+		S1x+=1;
+		if(S1x>30)
 		{
 			one.states.showHadouken = 0;
-			x=0;
+			S1x=0;
 		}
 	}
-	
-	//--------------------------------------------------> punch
-
+}
+void animation_S1Punch()
+{
 	if(one.states.punch == 1)
 	{
-		punchTimer++;
+		timerOne.punch++;
 		S1Punching();
-		if(punchTimer>10)
+		if(timerOne.punch>10)
 		{
 			one.states.punch=0;
-			punchTimer=0;
+			timerOne.punch=0;
 		}
 	}
 	else
@@ -478,7 +515,15 @@ void animate(){
 		//  initS1HandOne();
 	}
 
-	//printf("%d",one.states.punch);
+}
+void animate(){
+    animation_movingBodyUpAndDown();
+	animation_rotatingHead();
+	//--------------------------------> S1
+	animation_S1Kick();
+	animation_S1Hadouken();
+	animation_S1Punch();
+	//printf("%d",S1x);
 	glutPostRedisplay();
 }
 
@@ -493,6 +538,8 @@ void init(){
 	initializeStickmanTwo();
 	initializeS1States();
 	initializeS2States();
+	//S1x=one.armOne.bottom.x-15;
+
 	//clear the screen
 	glClearColor(0,0,0,0);
 

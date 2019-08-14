@@ -163,6 +163,8 @@ void initS1Lengths()
     one.lengths.thigh = sqrt(pow((one.legOne.top.x - one.legOne.middle.x),2) + pow((one.legOne.top.y - one.legOne.middle.y),2));
     one.lengths.knee = sqrt(pow((one.legOne.middle.x - one.legOne.bottom.x),2) + pow((one.legOne.middle.y - one.legOne.bottom.y),2));
     one.lengths.elbow2 = sqrt(pow(( one.armTwo.middle.x - one.armTwo.bottom.x ),2) + pow(( one.armTwo.middle.y - one.armTwo.bottom.y ),2));
+
+    
 }
 
 void initializeS1States()
@@ -172,6 +174,14 @@ void initializeS1States()
     one.states.kick = 0;
     one.states.hadouken = 0 ;
     one.states.showHadouken = 0;
+}
+
+void initializeS1Hadouken()
+{
+    one.hadouken.initial.x = 0;
+    one.hadouken.initial.y = 30;
+    one.hadouken.moving.x = 0;
+    
 }
 
 stickman two;
