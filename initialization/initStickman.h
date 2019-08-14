@@ -350,3 +350,10 @@ void initializeS2States()
     two.states.hadouken = 0 ;
     two.states.showHadouken = 0;
 }
+
+void initializeS2Hadouken()
+{
+    two.hadouken.initial.x = 0;
+    two.hadouken.initial.y = 30;
+    two.hadouken.moving.x = 0;
+}

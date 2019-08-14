@@ -402,6 +402,7 @@ void initializeStickmanTwo()
     initS2LegTwo();
     initS2FootTwo();
     initS2Lengths();
+    initializeS2Hadouken();
 }
 
 void S2Head()
@@ -636,23 +637,34 @@ void S2legTwo()
 void drawStickmanTwo()
 {
     glPushMatrix();
-    glTranslatef(0,0,0); // moving stickman one to the left side
-    glPushMatrix();
-    glTranslatef(two.toAndFro.x,two.toAndFro.y,0); // moving body front and back
-    S2Head();
-    glPushMatrix(); // moving body up and down
-    glTranslatef(two.bodyTranslate.x,two.bodyTranslate.y,0);
-    S2handOne();
-    S2armOne();
-    S2legOne();
-    S2body(); 
-    S2handTwo();
-    S2armTwo();
-    S2legTwo();
-    S2footOne();
-    S2footTwo();
-    glPopMatrix(); // END of moving body up and down
-    glPopMatrix(); // END of moving body front and back
+        glTranslatef(0,0,0); // moving stickman one to the left side
+        glPushMatrix();
+            glTranslatef(two.toAndFro.x,two.toAndFro.y,0); // moving body front and back
+            S2Head();
+                glPushMatrix(); // moving body up and down
+                    glTranslatef(two.bodyTranslate.x,two.bodyTranslate.y,0);
+                    S2handOne();
+                    S2armOne();
+                    S2legOne();
+                    S2body(); 
+                    S2handTwo();
+                    S2armTwo();
+                    S2legTwo();
+                    S2footOne();
+                    S2footTwo();
+                    glPushMatrix(); // Hadouken 
+                            glTranslatef(two.hadouken.moving.x,0,0); // moving hadouken forward
+                            glPushMatrix();
+                                glTranslatef(two.lengths.hadoukenX,two.lengths.hadoukenCenter,0); // centering hadouken
+                                glPushMatrix();
+                                    glTranslatef(two.hadouken.initial.x,two.hadouken.initial.y,0);
+                                    glRotatef(two.headOne.angle,0,0,1);
+                                    hadoukenArt();
+                                glPopMatrix();
+                            glPopMatrix();
+                    glPopMatrix(); // EMD of hadouken
+                glPopMatrix(); // END of moving body up and down
+        glPopMatrix(); // END of moving body front and back
     glPopMatrix();
     
     drawAxes();
@@ -662,10 +674,10 @@ void drawStickmanTwo()
 void S2Punching()
 {
     //line
-		two.armOne.middle.x= two.armOne.top.x + two.lengths.bicep;
+		two.armOne.middle.x= two.armOne.top.x - two.lengths.bicep;
 		two.armOne.middle.y = two.armOne.top.y;
 
-		two.armOne.bottom.x = two.armOne.middle.x + two.lengths.elbow;
+		two.armOne.bottom.x = two.armOne.middle.x - two.lengths.elbow;
 		two.armOne.bottom.y = two.armOne.top.y;
 
 		//bicep
@@ -696,10 +708,10 @@ void S2Punching()
 void S2Kicking()
 {
     //line
-		two.legOne.middle.x= two.legOne.top.x + two.lengths.thigh;
+		two.legOne.middle.x= two.legOne.top.x - two.lengths.thigh;
 		two.legOne.middle.y = two.legOne.top.y;
 
-		two.legOne.bottom.x = two.legOne.middle.x + two.lengths.knee;
+		two.legOne.bottom.x = two.legOne.middle.x - two.lengths.knee;
 		two.legOne.bottom.y = two.legOne.top.y;
     //thigh
 		two.legOne.thigh.a.x = two.legOne.top.x;
@@ -729,16 +741,16 @@ void S2Hadouken()
 {
     S2Punching();
     //line
-    two.armTwo.bottom.x = two.armTwo.middle.x+ two.lengths.elbow2;
+    two.armTwo.bottom.x = two.armTwo.middle.x- two.lengths.elbow2;
     two.armTwo.bottom.y = two.armTwo.middle.y;
     //elbow
     two.armTwo.elbow.a.x = two.armTwo.middle.x;
     two.armTwo.elbow.a.y = two.armTwo.middle.y+3;
-    two.armTwo.elbow.b.x = two.armTwo.middle.x+two.lengths.elbow2;
+    two.armTwo.elbow.b.x = two.armTwo.middle.x-two.lengths.elbow2;
     two.armTwo.elbow.b.y = two.armTwo.middle.y+1.5;
-    two.armTwo.elbow.c.x = two.armTwo.middle.x+two.lengths.elbow2;
+    two.armTwo.elbow.c.x = two.armTwo.middle.x-two.lengths.elbow2;
     two.armTwo.elbow.c.y = two.armTwo.middle.y-1.5;
-    two.armTwo.elbow.d.x = two.armTwo.middle.x-3.5;
+    two.armTwo.elbow.d.x = two.armTwo.middle.x+3.5;
     two.armTwo.elbow.d.y = two.armTwo.middle.y-.5;
 
     //hand

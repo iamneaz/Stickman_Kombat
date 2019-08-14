@@ -381,37 +381,10 @@ void display(){
 	drawStickmanOne();
 	drawStickmanTwo();
 
-	//  if(one.states.showHadouken==1)
-	// {
-	// 	glPushMatrix();
-	// 	glTranslatef(S1x,0,0);
-	// 	glPushMatrix();
-	// 	glTranslatef(one.lengths.hadoukenX,one.lengths.hadoukenCenter,0);
-    // 	glRotatef(one.headOne.angle,0,0,1);
-    // 	hadoukenArt();
-	// 	glPopMatrix();
-	// 	glPopMatrix();
-	// }
-	// else
-	// {
-		
-	// }
+
 	
 
-	if(two.states.showHadouken==1)
-	{
-		glPushMatrix();
-		glTranslatef(S2x,0,0);
-		glPushMatrix();
-		glTranslatef(two.lengths.hadoukenX,two.lengths.hadoukenCenter,0);
-    	glRotatef(two.headOne.angle,0,0,1);
-    	hadoukenArt();
-		glPopMatrix();
-		glPopMatrix();
 
-		
-		
-	}
 
 	//drawString(0,-30,0,testString);
 	//ADD this line in the end --- if you use double buffer (i.e. GL_DOUBLE)
@@ -464,7 +437,6 @@ void animation_S1Hadouken()
 		one.hadouken.initial.y=0;
 		one.lengths.hadoukenCenter = (one.armOne.bottom.y + one.armTwo.bottom.y)/2;
     	one.lengths.hadoukenX = one.armTwo.bottom.x;
-		hx = one.lengths.hadoukenX ;
 		one.states.showHadouken =1;
 		timerOne.hadouken++;
 		one.hadouken.moving.x++;
@@ -486,16 +458,6 @@ void animation_S1Hadouken()
 		initS1HandTwo();
 	}
 
-	if(one.states.showHadouken == 1)
-	{
-		
-		S1x+=1;
-		if(S1x>30)
-		{
-			one.states.showHadouken = 0;
-			S1x=0;
-		}
-	}
 }
 void animation_S1Punch()
 {
@@ -516,6 +478,75 @@ void animation_S1Punch()
 	}
 
 }
+
+/*
+ANIMATIONS OF STICKMAN 2
+*/
+void animation_S2Kick()
+{
+	if(two.states.kick==1)
+	{
+		timerTwo.kick++;
+		S2Kicking();
+		if(timerTwo.kick>10)
+		{
+			two.states.kick=0;
+			timerTwo.kick=0;
+		}
+	}
+	else
+	{
+		initS2LegOne();
+		initS2FootOne();
+	}
+}
+void animation_S2Punch()
+{
+	if(two.states.punch == 1)
+	{
+		timerTwo.punch++;
+		S2Punching();
+		if(timerTwo.punch>10)
+		{
+			two.states.punch=0;
+			timerTwo.punch=0;
+		}
+	}
+	else
+	{
+		//  initS1ArmOne();
+		//  initS1HandOne();
+	}
+
+}
+void animation_S2Hadouken()
+{
+	if(two.states.hadouken == 1)
+	{
+		two.hadouken.initial.y=0;
+		two.lengths.hadoukenCenter = (two.armOne.bottom.y + two.armTwo.bottom.y)/2;
+    	two.lengths.hadoukenX = two.armTwo.bottom.x;
+		two.states.showHadouken =1;
+		timerTwo.hadouken++;
+		two.hadouken.moving.x--;
+		S2Hadouken();
+		if(timerTwo.hadouken>20)
+		{
+			two.hadouken.moving.x=0;
+			two.states.hadouken = 0;
+			timerTwo.hadouken = 0;
+			two.hadouken.initial.y=0;
+			two.lengths.hadoukenX=0;
+		}	
+	}
+	else
+	{
+		initS2ArmOne();
+		initS2ArmTwo();
+		initS2HandOne();
+		initS2HandTwo();
+	}
+}
 void animate(){
     animation_movingBodyUpAndDown();
 	animation_rotatingHead();
@@ -523,7 +554,12 @@ void animate(){
 	animation_S1Kick();
 	animation_S1Hadouken();
 	animation_S1Punch();
-	//printf("%d",S1x);
+	
+	//--------------------------------> S2
+	animation_S2Kick();
+	animation_S2Hadouken();
+	animation_S2Punch();
+	
 	glutPostRedisplay();
 }
 
