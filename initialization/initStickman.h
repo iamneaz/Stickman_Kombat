@@ -25,8 +25,10 @@ void initS1Body()
     one.bodyDown.y=25;
     one.bodyTranslate.x = 0;
     one.bodyTranslate.y = 0;
-    one.toAndFro.x = 0 ;
+    one.toAndFro.x = -50 ;
     one.toAndFro.y = 0 ;
+    // one.lastTranslate.x=-50;
+    // one.lastTranslate.y=0;
 }
 
 void initS1ArmOne()
@@ -163,7 +165,9 @@ void initS1Lengths()
     one.lengths.thigh = sqrt(pow((one.legOne.top.x - one.legOne.middle.x),2) + pow((one.legOne.top.y - one.legOne.middle.y),2));
     one.lengths.knee = sqrt(pow((one.legOne.middle.x - one.legOne.bottom.x),2) + pow((one.legOne.middle.y - one.legOne.bottom.y),2));
     one.lengths.elbow2 = sqrt(pow(( one.armTwo.middle.x - one.armTwo.bottom.x ),2) + pow(( one.armTwo.middle.y - one.armTwo.bottom.y ),2));
-
+    one.lengths.punch = 0;
+    one.lengths.kick = 0;
+    one.lengths.hadoukenShot = 0;
     
 }
 
@@ -181,6 +185,17 @@ void initializeS1Hadouken()
     one.hadouken.initial.x = 0;
     one.hadouken.initial.y = 30;
     one.hadouken.moving.x = 0;
+    
+}
+
+void initializeS1Life()
+{
+    int i;
+    for(i=1;i<6;i++)
+    {
+        one.life.lifebar[i]=1;
+    }
+    one.life.counter=1;
     
 }
 
@@ -202,8 +217,10 @@ void initS2Body()
     two.bodyDown.y=25;
     two.bodyTranslate.x = 0;
     two.bodyTranslate.y = 0;
-    two.toAndFro.x = 0 ;
+    two.toAndFro.x = 50 ;
     two.toAndFro.y = 0 ;
+    // two.lastTranslate.x=50;
+    // two.lastTranslate.y=0;
 }
 
 void initS2ArmOne()
@@ -340,6 +357,9 @@ void initS2Lengths()
     two.lengths.thigh = sqrt(pow((two.legOne.top.x - two.legOne.middle.x),2) + pow((two.legOne.top.y - two.legOne.middle.y),2));
     two.lengths.knee = sqrt(pow((two.legOne.middle.x - two.legOne.bottom.x),2) + pow((two.legOne.middle.y - two.legOne.bottom.y),2));
     two.lengths.elbow2 = sqrt(pow(( two.armTwo.middle.x - two.armTwo.bottom.x ),2) + pow(( two.armTwo.middle.y - two.armTwo.bottom.y ),2));
+    two.lengths.punch = 0;
+    two.lengths.kick = 0;
+    two.lengths.hadoukenShot = 0; 
 }
 
 void initializeS2States()
@@ -356,4 +376,14 @@ void initializeS2Hadouken()
     two.hadouken.initial.x = 0;
     two.hadouken.initial.y = 30;
     two.hadouken.moving.x = 0;
+}
+
+void initializeS2Life()
+{
+    int i;
+    for(i=1;i<6;i++)
+    {
+        two.life.lifebar[i]=1;
+    }
+    two.life.counter=1;
 }

@@ -21,6 +21,7 @@ void initializeStickmanOne()
     initS1FootTwo();
     initS1Lengths();
     initializeS1Hadouken();
+    initializeS1Life();
     
 }
 
@@ -85,7 +86,7 @@ void body()
 {
     //line
     glPushMatrix(); 
-		glTranslatef(one.headTranslate.x,one.headTranslate.y-60,0);
+		glTranslatef(one.headTranslate.x,one.headTranslate.y,0);
         
 		glBegin(GL_LINES);{				
 			glColor3f(0.0, 1.0, 0.0);
@@ -256,7 +257,7 @@ void legTwo()
 void drawStickmanOne()
 {
     glPushMatrix();
-        glTranslatef(-50,0,0); // moving stickman one to the left side
+        //glTranslatef(one.lastTranslate.x,one.lastTranslate.y,0); // moving stickman one to the left side
         glPushMatrix();
             glTranslatef(one.toAndFro.x,one.toAndFro.y,0); // moving body front and back
             theHead();
@@ -286,13 +287,16 @@ void drawStickmanOne()
          glPopMatrix(); // END of moving body front and back
     glPopMatrix();
 
-   
+   glPushMatrix(); // Hadouken 
+        glTranslatef(-80,90,0); // moving hadouken forward
+        lifeMeter(one.life.lifebar[1],one.life.lifebar[2],one.life.lifebar[3],one.life.lifebar[4],one.life.lifebar[5]);
+    glPopMatrix();             
 	
 	
 
     
-    drawAxes();
-    drawGrid();
+    // drawAxes();
+    // drawGrid();
 }
 
 void S1Punching()
@@ -303,6 +307,8 @@ void S1Punching()
 
 		one.armOne.bottom.x = one.armOne.middle.x + one.lengths.elbow;
 		one.armOne.bottom.y = one.armOne.top.y;
+        one.lengths.punch = one.toAndFro.x+one.armOne.middle.x+ one.armOne.bottom.x;
+      
 
 		//bicep
 		one.armOne.bicep.a.x = one.armOne.top.x-2;
@@ -327,6 +333,8 @@ void S1Punching()
         one.handOne.translate.x = one.armOne.bottom.x ;
 		one.handOne.translate.y = one.armOne.bottom.y ; 
         one.handOne.angle = 180;
+
+        
 }
 
 void S1Kicking()
@@ -337,6 +345,7 @@ void S1Kicking()
 
 		one.legOne.bottom.x = one.legOne.middle.x + one.lengths.knee;
 		one.legOne.bottom.y = one.legOne.top.y;
+        one.lengths.kick = one.toAndFro.x+one.legOne.middle.x+one.legOne.bottom.x;
     //thigh
 		one.legOne.thigh.a.x = one.legOne.top.x;
 		one.legOne.thigh.a.y = one.legOne.top.y + 5;
@@ -355,7 +364,7 @@ void S1Kicking()
 		one.legOne.knee.c.y = one.legOne.bottom.y - 1.5;
 		one.legOne.knee.d.x = one.legOne.thigh.c.x;
 		one.legOne.knee.d.y = one.legOne.thigh.c.y;
-    //hand
+    //foot
         one.footOne.translate.x = one.legOne.bottom.x ;
 		one.footOne.translate.y = one.legOne.bottom.y ; 
         one.footOne.angle = 180;
@@ -403,6 +412,7 @@ void initializeStickmanTwo()
     initS2FootTwo();
     initS2Lengths();
     initializeS2Hadouken();
+    initializeS2Life();
 }
 
 void S2Head()
@@ -466,7 +476,7 @@ void S2body()
 {
     //line
     glPushMatrix(); 
-		glTranslatef(two.headTranslate.x,two.headTranslate.y-60,0);
+		glTranslatef(two.headTranslate.x,two.headTranslate.y,0);
         
 		glBegin(GL_LINES);{				
 			glColor3f(0.0, 1.0, 0.0);
@@ -637,7 +647,7 @@ void S2legTwo()
 void drawStickmanTwo()
 {
     glPushMatrix();
-        glTranslatef(0,0,0); // moving stickman one to the left side
+        //glTranslatef(two.lastTranslate.x,two.lastTranslate.y,0); // moving stickman two to the right side
         glPushMatrix();
             glTranslatef(two.toAndFro.x,two.toAndFro.y,0); // moving body front and back
             S2Head();
@@ -665,20 +675,28 @@ void drawStickmanTwo()
                     glPopMatrix(); // EMD of hadouken
                 glPopMatrix(); // END of moving body up and down
         glPopMatrix(); // END of moving body front and back
+
+    glPopMatrix();
+
+    glPushMatrix(); // Hadouken 
+        glTranslatef(50,90,0); // moving hadouken forward
+        lifeMeter(two.life.lifebar[1],two.life.lifebar[2],two.life.lifebar[3],two.life.lifebar[4],two.life.lifebar[5]);
+
     glPopMatrix();
     
-    drawAxes();
-    drawGrid();
+    
 }
 
 void S2Punching()
 {
+
     //line
 		two.armOne.middle.x= two.armOne.top.x - two.lengths.bicep;
 		two.armOne.middle.y = two.armOne.top.y;
 
 		two.armOne.bottom.x = two.armOne.middle.x - two.lengths.elbow;
 		two.armOne.bottom.y = two.armOne.top.y;
+        two.lengths.punch = two.toAndFro.x + two.armOne.middle.x + two.armOne.bottom.x;
 
 		//bicep
 		two.armOne.bicep.a.x = two.armOne.top.x-2;
@@ -713,6 +731,8 @@ void S2Kicking()
 
 		two.legOne.bottom.x = two.legOne.middle.x - two.lengths.knee;
 		two.legOne.bottom.y = two.legOne.top.y;
+
+        two.lengths.kick = two.toAndFro.x+two.legOne.middle.x+two.legOne.bottom.x;
     //thigh
 		two.legOne.thigh.a.x = two.legOne.top.x;
 		two.legOne.thigh.a.y = two.legOne.top.y + 5;

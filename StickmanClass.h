@@ -76,8 +76,19 @@ struct length
     int elbow2;
     int hadoukenCenter;
     int hadoukenX;
+    int punch;
+    int kick;
+    int hadoukenShot;
     
 };
+
+struct lifeLine
+{
+    int lifebar [5];
+    int counter;
+};
+
+
 
 
 struct stickman
@@ -90,6 +101,7 @@ struct stickman
     points bodyDown;
     points bodyTranslate;
     points toAndFro;
+    points lastTranslate;
 
     //---------------------arms
     arm armOne,armTwo;
@@ -108,6 +120,10 @@ struct stickman
     //---------------------Hadouken
     
     hadoukenPoints hadouken;
+
+    //----------------------Life
+
+    lifeLine life;
 };
 
 

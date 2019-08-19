@@ -205,33 +205,204 @@ char* testString;
 
 struct counter
 {
-	int punch=0;
-	int kick=0;
-	int hadouken=0;
+	double punch=0;
+	double kick=0;
+	double hadouken=0;
+};
+
+struct switchCounter
+{
+	int punch = 0;
+	int kick = 0;
+	int hadouken = 0;
 };
 
 counter timerOne,timerTwo;
+switchCounter oneSwitch,twoSwitch;
+int startGame=0;
+int switchHadouken = 0;
+int stickmanOneWon = 1;
+int stickmanTwoWon = 0;
+int hx=0;
 
 void drawSS()
 {
     glColor3f(1,0,0);
-    drawSquare(20);
+    circle(10,10);
     glPushMatrix();
-    glRotatef(angle,0,0,1);
-    glTranslatef(110,0,0);
-    glRotatef(2*angle,0,0,1);
-    glColor3f(0,1,0);
-    drawSquare(15);
-    //glPopMatrix();
-    glPushMatrix();
-    {
-        glRotatef(angle,0,0,1);
-        glTranslatef(60,0,0);
-        glRotatef(2*angle,0,0,1);
-        glColor3f(0,0,1);
-        drawSquare(10);
-    }
+		glRotatef(-angle,0,0,1);
+		glTranslatef(0,20,0);
+		glRotatef(2*angle,0,0,1);
+		glColor3f(1,0,0);
+		drawSquare(5);
+		glPushMatrix();
+			glRotatef(-angle,0,0,1);
+			glTranslatef(10,20,0);
+			glRotatef(2*angle,0,0,1);
+			glColor3f(1,0,0);
+			circle(5,5);
+		glPopMatrix();
+		
     glPopMatrix();
+
+	glPushMatrix();
+		glRotatef(angle,0,0,1);
+		glTranslatef(0,30,0);
+		glRotatef(2*angle,0,0,1);
+		glColor3f(0,1,0);
+		drawSquare(5);
+		glPushMatrix();
+			glRotatef(-angle,0,0,1);
+			glTranslatef(10,30,0);
+			glRotatef(2*angle,0,0,1);
+			glColor3f(0,1,0);
+			circle(5,5);
+		glPopMatrix();
+		glPushMatrix();
+			glRotatef(-angle,0,0,1);
+			glTranslatef(20,30,0);
+			glRotatef(2*angle,0,0,1);
+			glColor3f(0,1,0);
+			circle(5,5);
+		glPopMatrix();
+    
+    glPopMatrix();
+
+	glPushMatrix();
+		glRotatef(-angle,0,0,1);
+		glTranslatef(0,40,0);
+		glRotatef(2*angle,0,0,1);
+		glColor3f(0,0,1);
+		drawSquare(5);
+		glPushMatrix();
+			glRotatef(-angle,0,0,1);
+			glTranslatef(10,40,0);
+			glRotatef(2*angle,0,0,1);
+			glColor3f(0,0,1);
+			circle(5,5);
+		glPopMatrix();
+		glPushMatrix();
+			glRotatef(-angle,0,0,1);
+			glTranslatef(30,40,0);
+			glRotatef(2*angle,0,0,1);
+			glColor3f(0,0,1);
+			circle(5,5);
+		glPopMatrix();
+    glPopMatrix();
+
+	glPushMatrix();
+		glRotatef(angle,0,0,1);
+		glTranslatef(0,50,0);
+		glRotatef(2*angle,0,0,1);
+		glColor3f(1,1,0);
+		drawSquare(5);
+		glPushMatrix();
+			glRotatef(-angle,0,0,1);
+			glTranslatef(10,50,0);
+			glRotatef(2*angle,0,0,1);
+			glColor3f(1,1,0);
+			circle(5,5);
+		glPopMatrix();
+		glPushMatrix();
+			glRotatef(-angle,0,0,1);
+			glTranslatef(40,50,0);
+			glRotatef(2*angle,0,0,1);
+			glColor3f(1,1,0);
+			circle(5,5);
+		glPopMatrix();
+	glPopMatrix();
+
+	glPushMatrix();
+		glRotatef(-angle,0,0,1);
+		glTranslatef(0,60,0);
+		glRotatef(2*angle,0,0,1);
+		glColor3f(1,50,90);
+		drawSquare(5);
+		glPushMatrix();
+			glRotatef(-angle,0,0,1);
+			glTranslatef(10,60,0);
+			glRotatef(2*angle,0,0,1);
+			glColor3f(1,50,90);
+			circle(5,5);
+		glPopMatrix();
+		glPushMatrix();
+			glRotatef(-angle,0,0,1);
+			glTranslatef(50,60,0);
+			glRotatef(2*angle,0,0,1);
+			glColor3f(1,50,90);
+			circle(5,5);
+		glPopMatrix();
+    glPopMatrix();
+
+	glPushMatrix();
+		glRotatef(angle,0,0,1);
+		glTranslatef(0,70,0);
+		glRotatef(2*angle,0,0,1);
+		glColor3f(1,1,0);
+		drawSquare(5);
+		glPushMatrix();
+			glRotatef(-angle,0,0,1);
+			glTranslatef(10,70,0);
+			glRotatef(2*angle,0,0,1);
+			glColor3f(11,1,90);
+			circle(5,5);
+		glPopMatrix();
+		glPushMatrix();
+			glRotatef(-angle,0,0,1);
+			glTranslatef(60,70,0);
+			glRotatef(2*angle,0,0,1);
+			glColor3f(11,1,90);
+			circle(5,5);
+		glPopMatrix();
+    
+    glPopMatrix();
+
+	    glPushMatrix();
+		glRotatef(-angle,0,0,1);
+		glTranslatef(0,80,0);
+		glRotatef(2*angle,0,0,1);
+		glColor3f(1,0,1);
+		drawSquare(5);
+		glPushMatrix();
+			glRotatef(-angle,0,0,1);
+			glTranslatef(10,80,0);
+			glRotatef(2*angle,0,0,1);
+			glColor3f(1,50,0);
+			circle(5,5);
+		glPopMatrix();
+		glPushMatrix();
+			glRotatef(-angle,0,0,1);
+			glTranslatef(70,80,0);
+			glRotatef(2*angle,0,0,1);
+			glColor3f(1,50,0);
+			circle(5,5);
+		glPopMatrix();
+    glPopMatrix();
+
+	glPushMatrix();
+		glRotatef(angle,0,0,1);
+		glTranslatef(0,90,0);
+		glRotatef(2*angle,0,0,1);
+		glColor3f(0,1,1);
+		drawSquare(5);
+		glPushMatrix();
+			glRotatef(-angle,0,0,1);
+			glTranslatef(10,90,0);
+			glRotatef(2*angle,0,0,1);
+			glColor3f(0,1,1);
+			circle(5,5);
+		glPopMatrix();
+		glPushMatrix();
+			glRotatef(-angle,0,0,1);
+			glTranslatef(80,90,0);
+			glRotatef(2*angle,0,0,1);
+			glColor3f(0,1,1);
+			circle(5,5);
+		glPopMatrix();
+	glPopMatrix();
+    
+    glPopMatrix();
+
 
 }
 
@@ -255,19 +426,44 @@ void keyboardListener(unsigned char key, int x,int y){
 	switch(key){
 
 		case 'd':
-			one.toAndFro.x+=1; // stickmanOne going forward
+			//one.toAndFro.x+=1; // stickmanOne going forward
+			//printf("%f %f\n",one.toAndFro.x,two.toAndFro.x);
+			
+			if(one.toAndFro.x == two.toAndFro.x-30)
+			{
+				one.toAndFro.x-=10;
+			}
+			else
+			{
+				one.toAndFro.x+=1; // stickmanOne going forward
+			}
 			break;
 		case 'a':
 			one.toAndFro.x-=1; // stickmanOne going backward
 			break;
 		case 'b':
 			one.states.punch = 1 ; // punch
+			if(two.life.counter>4)
+			{
+				stickmanOneWon=1;
+			}
+			printf("%d \n",two.life.counter);
 			break;
 		case 'n':
 			one.states.kick = 1 ; // kick
+			if(two.life.counter>4)
+			{
+				stickmanOneWon=1;
+			}
+			printf("%d \n",two.life.counter);
 			break;
 		case 'm':
 			one.states.hadouken = 1 ; // Hadouken
+			if(two.life.counter>4)
+			{
+				stickmanOneWon=1;
+			}
+			printf("%d \n",two.life.counter);
 			break;
 		case '1':
 			two.states.punch = 1 ; // punch
@@ -278,6 +474,15 @@ void keyboardListener(unsigned char key, int x,int y){
 		case '3':
 			two.states.hadouken = 1 ; // Hadouken
 			break;
+		case 'y':
+			startGame = 1 ; // Hadouken
+			break;
+		case 'u':
+			hx=0 ; // Hadouken
+			one.life.counter=1;
+			two.life.counter=1;
+			break;
+		
 
 
 		default:
@@ -299,7 +504,14 @@ void specialKeyListener(int key, int x,int y){
 			two.toAndFro.x+=1; // stickmanTwo going backward
 			break;
 		case GLUT_KEY_LEFT:
-			two.toAndFro.x-=1; // stickmanTwo going forward
+			if(two.toAndFro.x == one.toAndFro.x+30)
+			{
+				two.toAndFro.x+=10;
+			}
+			else
+			{
+				two.toAndFro.x-=1; // stickmanTwo going forward
+			}
 			break;
 
 		case GLUT_KEY_PAGE_UP:
@@ -344,7 +556,8 @@ void mouseListener(int button, int state, int x, int y){	//x, y is the x-y of th
 
 
 int S1x=0 , S2x=0;
-int hx;
+
+
 void display(){
 
 	//clear the display
@@ -366,7 +579,7 @@ void display(){
 
 	//gluLookAt(100,100,100,	0,0,0,	0,0,1);
 	//gluLookAt(200*cos(cameraAngle), 200*sin(cameraAngle), cameraHeight,		0,0,0,		0,0,1);
-	gluLookAt(0,0,100,	0,0,0,	0,1,0);
+	gluLookAt(0,0,110,	0,0,0,	0,1,0);
 
 
 	//again select MODEL-VIEW
@@ -378,15 +591,60 @@ void display(){
 
 	//drawAxes();
 	//drawGrid();
-	drawStickmanOne();
-	drawStickmanTwo();
+	if(startGame==1)
+	{
+		if(hx==0)
+		{
+			glTranslatef(0,-30,0);
+			drawStickmanOne();
+			drawStickmanTwo();
+			glPushMatrix();
+			glTranslatef(0,30,-50);
+			//drawSS();
+			glPopMatrix();
+		}
+		
 
+			if(one.life.counter>4)
+			{
+				
+				drawString(0,0,0,"STICKMAN TWO WON");
+				drawString(22,-30,0,"Press U to START");
+				hx=1;
+				
 
+			}
+
+			if(two.life.counter>4)
+			{
+				
+				drawString(0,0,0,"STICKMAN One WON");
+				drawString(22,-30,0,"Press U to START");
+				hx=1;
+			}
+		
+	}
+	else if(stickmanTwoWon==1)
+	{
+		
+		drawString(0,0,0,"STICKMAN TWO WON");
+		drawString(22,-30,0,"Press Y to START");
+	}
+	else if(stickmanOneWon==1)
+	{
+		
+		drawString(0,0,0,"STICKMAN ONE WON");
+		drawString(22,-30,0,"Press Y to START");
+	}
+	else
+	{
+		stickmanTwoWon=0;
+		stickmanOneWon=0;
+		drawString(0,0,0,"STICKMAN KOMBAT");
+		drawString(22,-30,0,"Press Y to START");
+
+	}
 	
-
-
-
-	//drawString(0,-30,0,testString);
 	//ADD this line in the end --- if you use double buffer (i.e. GL_DOUBLE)
 	glutSwapBuffers();
 }
@@ -412,16 +670,33 @@ void animation_rotatingHead()
 	one.headOne.angle+=5;
 	two.headOne.angle+=5;
 }
+/*
+ANIMATIONS OF STICKMAN 1
+*/
 void animation_S1Kick()
 {
 	if(one.states.kick==1)
 	{
 		timerOne.kick++;
 		S1Kicking();
+		if(oneSwitch.kick==0)
+		{
+			if( one.lengths.kick >= two.toAndFro.x)
+			{
+				//printf("%d %f\n",one.lengths.kick,two.toAndFro.x);
+				two.life.lifebar[two.life.counter]=0;
+				two.life.counter++;
+				stickmanOneWon++;
+				//printf("%d \n",two.life.counter);
+				oneSwitch.kick=1;
+			}
+		}
+		
 		if(timerOne.kick>10)
 		{
 			one.states.kick=0;
 			timerOne.kick=0;
+			oneSwitch.kick=0;
 		}
 	}
 	else
@@ -432,6 +707,7 @@ void animation_S1Kick()
 }
 void animation_S1Hadouken()
 {
+	
 	if(one.states.hadouken == 1)
 	{
 		one.hadouken.initial.y=0;
@@ -441,6 +717,20 @@ void animation_S1Hadouken()
 		timerOne.hadouken++;
 		one.hadouken.moving.x++;
 		S1Hadouken();
+		one.lengths.hadoukenShot = one.hadouken.moving.x+one.toAndFro.x+50;
+		//printf("%d %f\n",one.lengths.hadoukenShot,two.toAndFro.x);
+		if(oneSwitch.hadouken==0)
+		{
+			if( one.lengths.hadoukenShot >= two.toAndFro.x)
+			{
+				//printf("%d \n",two.life.counter);
+            	two.life.lifebar[two.life.counter]=0;
+				two.life.counter++;
+				stickmanOneWon++;
+				oneSwitch.hadouken=1;
+			}
+		}
+		
 		if(timerOne.hadouken>20)
 		{
 			one.hadouken.moving.x=0;
@@ -448,6 +738,8 @@ void animation_S1Hadouken()
 			timerOne.hadouken = 0;
 			one.hadouken.initial.y=0;
 			one.lengths.hadoukenX=0;
+			
+			oneSwitch.hadouken=0;
 		}	
 	}
 	else
@@ -465,10 +757,25 @@ void animation_S1Punch()
 	{
 		timerOne.punch++;
 		S1Punching();
+		if(oneSwitch.punch==0)
+		{
+			if( one.lengths.punch >= two.toAndFro.x)
+			{
+				//printf("%d %f\n",one.lengths.punch,two.toAndFro.x);
+				two.life.lifebar[two.life.counter]=0;
+				two.life.counter++;
+				stickmanOneWon++;
+				//printf("%d \n",two.life.counter);
+				oneSwitch.punch=1;
+			}
+		}
+		
 		if(timerOne.punch>10)
 		{
 			one.states.punch=0;
 			timerOne.punch=0;
+			oneSwitch.punch=0;
+			
 		}
 	}
 	else
@@ -488,10 +795,24 @@ void animation_S2Kick()
 	{
 		timerTwo.kick++;
 		S2Kicking();
-		if(timerTwo.kick>10)
+		if(twoSwitch.kick==0)
+		{
+			if( two.lengths.kick <= one.toAndFro.x)
+			{
+				//printf("%d %f\n",two.lengths.kick,one.toAndFro.x);
+				one.life.lifebar[one.life.counter]=0;
+				one.life.counter++;
+				stickmanTwoWon++;
+				//printf("%d \n",one.life.counter);
+				twoSwitch.kick=1;
+			}
+		}
+		
+		if(timerTwo.kick>.3)
 		{
 			two.states.kick=0;
 			timerTwo.kick=0;
+			twoSwitch.kick=0;
 		}
 	}
 	else
@@ -506,10 +827,25 @@ void animation_S2Punch()
 	{
 		timerTwo.punch++;
 		S2Punching();
+		//printf("%d %f\n",two.lengths.punch,one.toAndFro.x);
+		if(twoSwitch.punch==0)
+		{
+			if( two.lengths.punch <= one.toAndFro.x)
+			{
+				
+				one.life.lifebar[one.life.counter]=0;
+				one.life.counter++;
+				stickmanTwoWon++;
+				//printf("%d \n",one.life.counter);
+				twoSwitch.punch=1;
+			}
+		}
+		
 		if(timerTwo.punch>10)
 		{
 			two.states.punch=0;
 			timerTwo.punch=0;
+			twoSwitch.punch=0;
 		}
 	}
 	else
@@ -530,6 +866,19 @@ void animation_S2Hadouken()
 		timerTwo.hadouken++;
 		two.hadouken.moving.x--;
 		S2Hadouken();
+		two.lengths.hadoukenShot = two.hadouken.moving.x+two.toAndFro.x-50;
+		//printf("%d %f\n",two.lengths.hadoukenShot,one.toAndFro.x);
+		if(twoSwitch.hadouken==0)
+		{
+			if( two.lengths.hadoukenShot <= one.toAndFro.x)
+			{
+				//printf("%d \n",one.life.counter);
+            	one.life.lifebar[one.life.counter]=0;
+				one.life.counter++;
+				stickmanTwoWon++;
+				twoSwitch.hadouken=1;
+			}
+		}
 		if(timerTwo.hadouken>20)
 		{
 			two.hadouken.moving.x=0;
@@ -537,6 +886,7 @@ void animation_S2Hadouken()
 			timerTwo.hadouken = 0;
 			two.hadouken.initial.y=0;
 			two.lengths.hadoukenX=0;
+			twoSwitch.hadouken=0;
 		}	
 	}
 	else
@@ -560,6 +910,17 @@ void animate(){
 	animation_S2Hadouken();
 	animation_S2Punch();
 	
+	//--------------------------------> Background
+	angle+=2;
+	//printf("%d \n",two.life.counter);
+	if(one.life.counter>4)
+	{
+		stickmanTwoWon=1;
+	}
+	// if(two.life.counter>4)
+	// {
+	// 	stickmanOneWon=1;
+	// }
 	glutPostRedisplay();
 }
 

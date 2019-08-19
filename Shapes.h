@@ -65,6 +65,21 @@ void drawSquare(double a)
 	}glEnd();
 }
 
+void drawBitlife(double a)
+{
+    
+	glPushMatrix();
+	glColor3f(1.0,0.0,0.0);
+	drawSquare(a);
+	glPopMatrix(); 
+	glPushMatrix();
+	glColor3f(0.0,1.0,0.0);
+	drawSquare(a+1);
+	glPopMatrix(); 
+
+	
+}
+
 
 void drawCircle(double radius,int segments)
 {
@@ -139,5 +154,76 @@ void hadoukenArt()
 {
 	//glRotatef(one.headOne.angle,0,0,1);
     circleHead(5,5);
+}
+
+void lifeMeter(int one,int two,int three,int four,int five)
+{	
+	if(five ==1)
+	{
+		glPushMatrix();
+		glTranslatef(32,0,0);
+		drawBitlife(3);
+		glPopMatrix(); 
+	}
+	else
+	{
+		
+	}
+	if(four ==1)
+	{
+		glPushMatrix();
+		glTranslatef(24,0,0);
+		drawBitlife(3);
+		glPopMatrix(); 
+	}
+	else
+	{
+		
+	}
+	if(three ==1)
+	{
+		glPushMatrix();
+		glTranslatef(16,0,0);
+		drawBitlife(3);
+		glPopMatrix();
+	}
+	else
+	{
+		
+	}
+	if(two ==1)
+	{
+		glPushMatrix();
+		glTranslatef(8,0,0);
+		drawBitlife(3);
+		glPopMatrix();
+	}
+	else
+	{
+		
+	}
+	if(one ==1)
+	{
+		drawBitlife(3);
+	}
+	else
+	{
+		
+	}
+	
+}
+
+void start()
+{
+	glPushMatrix();
+	glTranslatef(80,-30,0);
+	glColor3f(1.0,0.0,0.0);
+	glBegin(GL_QUADS);{
+		glVertex3f( 10, 20,2);
+		glVertex3f( 10,-20,2);
+		glVertex3f(-20,-10,2);
+		glVertex3f(-20, 10,2);
+	}glEnd();
+	glPopMatrix(); 
 }
 
